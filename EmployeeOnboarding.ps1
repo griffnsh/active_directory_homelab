@@ -38,7 +38,7 @@ if ($Org.ToLower() -eq '_admins') {
 elseif ($Org.ToLower() -eq 'Help Desk') {
     $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
-    $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
+    $UserGroups = Get-ADPrincipalGroupMembership -Identity _HelpDeskTemplate
     # Create user
     New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
@@ -48,7 +48,7 @@ elseif ($Org.ToLower() -eq 'Help Desk') {
 elseif ($Org.ToLower() -eq 'Development') {
     $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
-    $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
+    $UserGroups = Get-ADPrincipalGroupMembership -Identity _DevelopmerTemplate
     # Create user
     New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
@@ -58,7 +58,7 @@ elseif ($Org.ToLower() -eq 'Development') {
 elseif ($Org.ToLower() -eq 'Executive Office') {
     $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
-    $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
+    $UserGroups = Get-ADPrincipalGroupMembership -Identity _ExecutiveTemplate
     # Create user
     New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
