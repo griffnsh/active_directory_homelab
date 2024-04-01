@@ -20,7 +20,7 @@ $FirstName = Read-Host "Please enter first name"
 $LastName = Read-Host "Please enter last name"
 $UserName = ($FirstName + "." + $LastName)
 $DisplayName = ($FirstName + " " + $LastName)
-$UPN = ($UserName + '@mydomain.com')aaa
+$UPN = ($UserName + '@mydomain.com')
 $CurrentDate = Get-Date -Format "yyyy/MM/dd"
 $AccExpiration = (Get-Date) + $TSpan
 
