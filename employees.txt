@@ -9,3 +9,4 @@ EmployeeID,FirstName,LastName,Title,Department,Office
 10001118, Jay, Murphy, Sr Developer, Development, Atlanta
 10001119, Carter, Brown, Jr Developer, Development, Nashville
 10001120, Lisa, Dunn, Help Desk Technician, IT, Atlanta
+10001121, Brian, Patel, Financial Advisor, Finance, Birmingham
