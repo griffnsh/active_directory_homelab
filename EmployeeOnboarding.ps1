@@ -20,7 +20,7 @@ $FirstName = Read-Host "Please enter first name"
 $LastName = Read-Host "Please enter last name"
 $UserName = ($FirstName + "." + $LastName)
 $DisplayName = ($FirstName + " " + $LastName)
-$UPN = ($UserName + '@mydomain.com')
+$UPN = ($UserName + '@mydomain.com')aaa
 $CurrentDate = Get-Date -Format "yyyy/MM/dd"
 $AccExpiration = (Get-Date) + $TSpan
 
@@ -30,7 +30,7 @@ if ($Org.ToLower() -eq '_admins') {
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
     # Create user
-    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
+    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created: " +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
@@ -40,7 +40,7 @@ elseif ($Org.ToLower() -eq 'Help Desk') {
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _HelpDeskTemplate
     # Create user
-    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
+    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created: " +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
@@ -50,7 +50,7 @@ elseif ($Org.ToLower() -eq 'Development') {
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _DevelopmerTemplate
     # Create user
-    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
+    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created: " +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
@@ -60,7 +60,7 @@ elseif ($Org.ToLower() -eq 'Executive Office') {
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _ExecutiveTemplate
     # Create user
-    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created:" +$CurrentDate) -AccountExpirationDate $AccExpiration
+    New-ADUser -Instance $User -SamAccountName $UserName -UserPrincipalName $UPN -Surname $LastName -GivenName $FirstName -Name $DisplayName -Description ("Created: " +$CurrentDate) -AccountExpirationDate $AccExpiration
     # Assign users to groups
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
