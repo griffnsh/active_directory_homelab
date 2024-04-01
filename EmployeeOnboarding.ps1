@@ -2,8 +2,8 @@
 $TSpan = New-TimeSpan -Days 365
 
 # Declare OUs
-$OrgList = ('Admins, Help Desk, Development, Executive Office')
-$Org = Read-Host "Please enter Department (Admins, Help Desk, Development, Executive Office)"
+$OrgList = @('_Admins', 'Help Desk', 'Development', 'Executive Office')
+$Org = Read-Host "Please enter Department (_Admins, Help Desk, Development, Executive Office)"
 
 # Validate Department Input
 if ($Org -in $OrgList) {
@@ -25,8 +25,8 @@ $CurrentDate = Get-Date -Format "yyyy/MM/dd"
 $AccExpiration = (Get-Date) + $TSpan
 
 # Copy info via template
-if ($Org.ToLower() -eq 'Admins') {
-    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office, OfficePhoneNumber
+if ($Org.ToLower() -eq '_admins') {
+    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
     # Create user
@@ -35,8 +35,8 @@ if ($Org.ToLower() -eq 'Admins') {
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
 
-if ($Org.ToLower() -eq 'Help Desk') {
-    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office, OfficePhoneNumber
+elseif ($Org.ToLower() -eq 'Help Desk') {
+    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
     # Create user
@@ -45,8 +45,8 @@ if ($Org.ToLower() -eq 'Help Desk') {
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
 
-if ($Org.ToLower() -eq 'Development') {
-    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office, OfficePhoneNumber
+elseif ($Org.ToLower() -eq 'Development') {
+    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
     # Create user
@@ -55,8 +55,8 @@ if ($Org.ToLower() -eq 'Development') {
     $UserGroups | ForEach-Object { Add-ADPrincipalGroupMembership -Identity $UserName -MemberOf $_ -ErrorAction SilentlyContinue}
 }
 
-if ($Org.ToLower() -eq 'Executive Office') {
-    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office, OfficePhoneNumber
+elseif ($Org.ToLower() -eq 'Executive Office') {
+    $User = Get-ADUser -Identity _AdminTemplate -Properties Description, Office
     # Get user group
     $UserGroups = Get-ADPrincipalGroupMembership -Identity _AdminTemplate
     # Create user
@@ -66,3 +66,28 @@ if ($Org.ToLower() -eq 'Executive Office') {
 }
 
 
+
+# Verify input
+Clear-Host
+Write-Host "User created for: $UserName"
+Write-Host "Properties:"
+Get-ADUser -Identity $UserName -Properties *
+
+# Enable Account -- Templates are disabled by default
+$EnableUser = Read-Host "Enable $UserName's account? (Y/N)"
+if ($EnableUser.ToLower() -eq 'y') {
+    Set-ADAccountPassword -Identity $UserName -Reset
+    Write-Host "Account Enabled"
+    Enable-ADAccount -Identity $UserName
+}
+# Decline Account enablment
+elseif  ($EnableUser.ToLower() -eq "n") {
+    Write-Host "Account remains disabled"
+}
+
+# Input validation
+else {
+    Write-Host "Input not recognized"
+    Start-Sleep -Seconds 5
+    Exit
+}
